@@ -32,7 +32,7 @@ ggplot(insurance_dataset, aes(x = Coverage.Zone, y = Claim.Freq)) +
   labs(title="Claim Frequency by Coverage Zone")
 
 #logistic regression model = to find the probability that a customer will file at least one claim in a policy year
-insurance_dataset$Has.Claim<-ifelse(insurance_dataset$Claim.Freq > 0, 1, 0) # Creates a binary outcome: 1 if claim > 0
+insurance_dataset$Has.Claim<-ifelse(insurance_dataset$Claim.Freq > 0, 1, 0)
 
 logit_model<-glm(Has.Claim ~ age + Gender + Education + Coverage.Zone,
                    data = insurance_dataset, family = binomial) # Logistic regression model
@@ -43,7 +43,7 @@ poisson_model<-glm(Claim.Freq ~ age + Gender + Education + Coverage.Zone,
                      data = insurance_dataset, family = poisson)
 summary(poisson_model)
 
-#gamma model - to
+#gamma model
 claims_only<-subset(insurance_dataset,Claim.Amount>0) #Only keep rows with claims
 gamma_model<-glm(Claim.Amount ~ age + Gender + Education + Coverage.Zone,
                    data = claims_only, family = Gamma(link="log"))
